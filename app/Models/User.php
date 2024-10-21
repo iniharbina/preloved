@@ -9,18 +9,14 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    protected $table = 'tb_user';
+    protected $primaryKey = 'id_user';
+    public $timestamps = false;  // Jika tabel tidak memiliki kolom created_at dan updated_at
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nama_customer', 'password', 'email_customer', 'no_hp', 'foto', 'status'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
