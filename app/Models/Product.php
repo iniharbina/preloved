@@ -9,16 +9,19 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $table = 'product';
     protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'category_id',
-        'image', // Menambahkan field image
+        'id_produk',
+        'id_kategori',
+        'nama_produk',
+        'harga',
+        'merk',
+        'stok',
+        'gambar'
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'id_kategori');
     }
 }

@@ -10,25 +10,26 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        return view('pages.products.index', compact('products')); // Pastikan path view sesuai
+        $product = Product::all();
+        return view('pages.product.index', compact('product')); // Pastikan path view sesuai
     }
 
     public function create()
     {
-        return view('pages.products.create'); // Pastikan path view sesuai
+        return view('pages.product.create'); // Pastikan path view sesuai
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'image' => 'required|image|max:2048',
+            'id_product' => 'required,integer|max:11',
+            'id_kategori' => 'required,integer|max:11',
+            'nama_produk' => 'required||max:255',
+            'harga', 
+            'merk',
         ]);
 
-        $imagePath = $request->file('image')->store('products', 'public');
+        $imagePath = $request->file('image')->store('product', 'public');
 
         Product::create([
             'name' => $request->name,
@@ -37,12 +38,12 @@ class ProductController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('product.index')->with('success', 'Produk berhasil ditambahkan!');
     }
 
     public function show(Product $product)
     {
-        return view('products.show', compact('product')); 
+        return view('product.show', compact('product')); 
     }
 
     public function update(Request $request, Product $product)
@@ -59,13 +60,13 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image);
 
             // Simpan gambar baru
-            $imagePath = $request->file('image')->store('products', 'public');
+            $imagePath = $request->file('image')->store('product', 'public');
             $product->image = $imagePath; // Update gambar ke produk
         }
 
         $product->update($request->only('name', 'description', 'price'));
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui!');
+        return redirect()->route('product.index')->with('success', 'Produk berhasil diperbarui!');
     }
 
     public function destroy(Product $product)
@@ -74,6 +75,6 @@ class ProductController extends Controller
         Storage::disk('public')->delete($product->image);
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus!');
+        return redirect()->route('product.index')->with('success', 'Produk berhasil dihapus!');
     }
 }
