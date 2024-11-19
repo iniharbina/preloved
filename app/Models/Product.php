@@ -10,6 +10,9 @@ class Product extends Model
     use HasFactory;
 
     protected $table = 'product';
+    protected $primaryKey = 'id_produk';
+    public $incrementing = true;
+    protected $keyType = 'int';
     protected $fillable = [
         'id_produk',
         'id_kategori',
