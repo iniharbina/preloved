@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.admin')
 
 @section('content')
     <div class="container">
@@ -9,13 +9,13 @@
                 <h5 class="card-title">{{ $product->name }}</h5>
                 <p class="card-text">{{ $product->description }}</p>
                 <p class="card-text">Harga: Rp {{ number_format($product->price, 2) }}</p>
-                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning">Edit</a>
-                <form action="{{ route('product.destroy', $product->id) }}" method="POST" style="display:inline;">
+                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>
-                <a href="{{ route('product.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('admin.product.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </div>

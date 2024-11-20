@@ -13,6 +13,7 @@ class Product extends Model
     protected $primaryKey = 'id_produk';
     public $incrementing = true;
     protected $keyType = 'int';
+    public $timestamps = false;
     protected $fillable = [
         'id_produk',
         'id_kategori',
@@ -25,6 +26,6 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'id_kategori');
+        return $this->belongsTo(Category::class, 'id_kategori', 'id_kategori');
     }
 }
