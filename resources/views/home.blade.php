@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{asset('css/fontawesome.min.css')}}">
 <!--
-    
+
 TemplateMo 559 Zay Shop
 
 https://templatemo.com/tm-559-zay-shop
@@ -34,6 +34,7 @@ https://templatemo.com/tm-559-zay-shop
                 Noviara Preloved
             </a>
 
+
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -42,7 +43,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home.index') }}">Home</a>
+                            <a href="{{ route('home.index')}}" class="nav-link {{request()->is('/') ? 'active': ''}} ">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
@@ -113,7 +114,7 @@ https://templatemo.com/tm-559-zay-shop
                                 <h1 class="h1 text-success"><b>Noviara</b> Preloved</h1>
                                 <h3 class="h2">Welcome to Noviara Preloved</h3>
                                 <p>
-                                    Selamat datang di Noviara Preloved, destinasi Anda untuk menemukan fashion preloved berkualitas tinggi dengan harga terjangkau! 
+                                    Selamat datang di Noviara Preloved, destinasi Anda untuk menemukan fashion preloved berkualitas tinggi dengan harga terjangkau!
                                     Di sini, kami percaya bahwa setiap barang memiliki cerita dan potensi baru untuk dicintai.
                                 </p>
                             </div>
@@ -132,8 +133,8 @@ https://templatemo.com/tm-559-zay-shop
                                 <h1 class="h1">About Us</h1>
                                 <h3 class="h2">Why Choose Noviara Preloved?</h3>
                                 <p>
-                                    Noviara Preloved adalah toko online yang menawarkan koleksi fashion preloved berkualitas dengan harga terjangkau. Kami berkomitmen 
-                                    untuk mempromosikan gaya hidup berkelanjutan dengan menyediakan pakaian dan aksesori yang telah melewati seleksi ketat. Temukan berbagai 
+                                    Noviara Preloved adalah toko online yang menawarkan koleksi fashion preloved berkualitas dengan harga terjangkau. Kami berkomitmen
+                                    untuk mempromosikan gaya hidup berkelanjutan dengan menyediakan pakaian dan aksesori yang telah melewati seleksi ketat. Temukan berbagai
                                     gaya unik yang siap untuk dicintai kembali.
                                 </p>
                             </div>
@@ -259,7 +260,7 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2024 Noviara Preloved 
+                            Copyright &copy; 2024 Noviara Preloved
                         </p>
                     </div>
                 </div>
