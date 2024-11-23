@@ -176,7 +176,6 @@ https://templatemo.com/tm-559-zay-shop
     </div>
     <!-- End Banner Hero -->
 
-
     <!-- Start Categories of The Month -->
     <section class="container py-5">
         <div class="row text-center pt-3">
@@ -185,20 +184,15 @@ https://templatemo.com/tm-559-zay-shop
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{{asset('img/baju3.jpeg')}}" class="rounded-circle img-fluid border"></a>
+            <div class="col-12 col-md-6 p-5 mt-3 d-flex flex-column align-items-center">
+                <img src="{{asset('img/baju3.jpeg')}}" class="rounded-circle img-fluid border" style="width: 300px; height: 300px; object-fit: cover;"></a>
                 <h5 class="text-center mt-3 mb-3">Women's Wear</h5>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+                <p class="text-center"><a href="{{ route('shop.index') }}" class="btn btn-success">Go Shop</a></p>
             </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{{asset('img/baju4.jpg')}}" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Men's Wear</h2>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="{{asset('img/category_img_03.jpg')}}" class="rounded-circle img-fluid border"></a>
-                <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-                <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+            <div class="col-12 col-md-6 p-5 mt-3 d-flex flex-column align-items-center">
+                <img src="{{asset('img/baju4.jpg')}}" class="rounded-circle img-fluid border" style="width: 300px; height: 300px; object-fit: cover;"></a>
+                <h5 class="text-center mt-3 mb-3">Men's Wear</h5>
+                <p class="text-center"><a href="{{ route('shop.index') }}" class="btn btn-success">Go Shop</a></p>
             </div>
         </div>
     </section>
