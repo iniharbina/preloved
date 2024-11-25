@@ -7,7 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 
 Route::get('/admin', function () {
-    return view('admin.admin');
+    return view('admin.index');
 })->name('admin.admin');
 
 // Home Route

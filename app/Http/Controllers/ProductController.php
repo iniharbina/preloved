@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::with('category')->get();
+        $product = Product::with('category')->paginate(5);
         return view('admin.product.index', compact('product')); // Pastikan path view sesuai
     }
 
@@ -25,9 +25,9 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'id_kategori' => 'required|integer|max:11',
-            'nama_produk' => 'required|max:255',
+            'nama_produk' => 'required|max:30',
             'harga' => 'required|integer',
-            'merk' => 'required|string|max:255',
+            'merk' => 'required|string|max:15',
             'stok' => 'required|integer',
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
@@ -67,9 +67,9 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'id_kategori' => 'required|integer|max:11',
-            'nama_produk' => 'required|max:255',
+            'nama_produk' => 'required|max:30',
             'harga' => 'required|integer',
-            'merk' => 'required|string|max:255',
+            'merk' => 'required|string|max:15',
             'stok' => 'required|integer',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048' // Gambar bersifat opsional pada update
         ]);
@@ -78,10 +78,18 @@ class ProductController extends Controller
     
         // Jika gambar baru diupload
         if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($product->gambar && Storage::exists('public/product/' . $product->gambar)) {
+                // Menghapus gambar lama dari storage
+                Storage::delete('public/product/' . $product->gambar);
+            }
+
             $gambar = $request->file('gambar');
             $gambarNama = $gambar->getClientOriginalName();
-            $path = $gambar->storeAs('product', $gambarNama, 'public');
-            $product->gambar = $gambarNama; // Simpan nama gambar baru
+            $path = $gambar->storeAs('product', $gambarNama, 'public');  // Menyimpan gambar
+
+            // Simpan nama gambar baru ke dalam database
+            $product->gambar = $gambarNama;
         }
     
         // Update data produk
@@ -91,7 +99,7 @@ class ProductController extends Controller
             'harga' => $validatedData['harga'],
             'merk' => $validatedData['merk'],
             'stok' => $validatedData['stok'],
-            'gambar' => $product->gambar, // Jika gambar tidak diubah, tetap menggunakan nama gambar lama
+            'gambar' => $gambarNama, // Jika gambar tidak diubah, tetap menggunakan nama gambar lama
         ]);
     
         return redirect()->route('admin.product.index')->with('success', 'Produk berhasil diperbarui!');

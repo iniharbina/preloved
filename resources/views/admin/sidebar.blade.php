@@ -31,14 +31,14 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{{ route('admin.admin') }}" class="nav-link active">
+              <i class="nav-icon fa-solid fa-house"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
           <li class="nav-item menu-open">
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-              <a href="{{ route('admin.product.index') }}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Produk</p>
-                </a>
-              </li>
               <!-- Add Product Link -->
               
               <li class="nav-item">
@@ -47,21 +47,24 @@
                   <p>Dashboard v2</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.product.index') }}" class="nav-link active">
+              <i class="nav-icon fa-solid fa-shirt"></i>
+              <p>Produk</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="pages/widgets.html" class="nav-link">
+              <i class="nav-icon fa-solid fa-user"></i>
+              <p>User</p>
+            </a>
           </li>
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
+              <p>Widgets</p>
             </a>
           </li>
         </ul>

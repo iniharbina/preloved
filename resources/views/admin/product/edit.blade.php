@@ -1,7 +1,7 @@
 @extends('admin.admin')
 
 @section('content')
-<br></br>
+<h1 class="ml-5">Edit Produk</h1>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -10,7 +10,11 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Produk</h3>
+                        <div class="float-right">
+                            <button onclick="location.href='{{ route('admin.product.index') }}'" class="btn btn-dark btn-sm">
+                                <i class="fas fa-reply mr-2"></i>Kembali
+                            </button>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -57,14 +61,14 @@
                                             </div>
                                         </div>
                                         @if($product->gambar)
-                                            <img src="{{ asset('storage/' . $product->gambar) }}" width="100" height="100" class="mt-2">
+                                            <img src="{{ asset('storage/product/' . $product->gambar) }}" width="100" height="100" class="mt-2">
                                         @endif
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <div class="form-group text-left">
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -73,3 +77,15 @@
     </div>
 </section>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.getElementById('gambar');
+        const fileLabel = document.querySelector('.custom-file-label');
+
+        fileInput.addEventListener('change', function () {
+            const fileName = this.files[0].name;
+            fileLabel.textContent = fileName;
+        });
+    });
+</script>
