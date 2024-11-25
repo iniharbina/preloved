@@ -10,11 +10,12 @@ class Category extends Model
     use HasFactory;
     protected $table = 'category';
     protected $primaryKey = 'id_kategori';
-    protected $fillable = [
-        'nama_kategori'
-    ]; 
-    public function products()
+
+    protected $fillable = ['nama_kategori', 'id_kategori']; 
+
+    public function product()
     {
         return $this->hasMany(Product::class, 'id_kategori');
     }
+    public $timestamps = false;
 }
