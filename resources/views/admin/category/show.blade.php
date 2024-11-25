@@ -32,7 +32,7 @@
                                             <td>{{ $item->nama_produk }}</td>
                                             <td>{{ $item->harga }}</td>
                                             <td>
-                                                <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_produk }}" style="width: 100px;">
+                                                <img src="{{ asset('storage/product/' . $item->gambar) }}" alt="{{ $item->nama_produk }}" style="width: 100px;">
                                             </td>
                                         </tr>
                                     @endforeach
