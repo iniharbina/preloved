@@ -34,7 +34,7 @@ class ProductController extends Controller
 
         $gambar = $request->file('gambar');
         $gambarNama = $gambar->getClientOriginalName();
-        $path = $gambar->storeAs('product', $gambarNama, 'public');
+        $gambar->move(public_path('product'), $gambarNama);
 
         Product::create([
             'id_produk' => $request->id_produk,
@@ -75,6 +75,8 @@ class ProductController extends Controller
         ]);
     
         $product = Product::findOrFail($id);
+
+        $gambarNama = $product->gambar;
     
         // Jika gambar baru diupload
         if ($request->hasFile('gambar')) {
@@ -87,9 +89,6 @@ class ProductController extends Controller
             $gambar = $request->file('gambar');
             $gambarNama = $gambar->getClientOriginalName();
             $path = $gambar->storeAs('product', $gambarNama, 'public');  // Menyimpan gambar
-
-            // Simpan nama gambar baru ke dalam database
-            $product->gambar = $gambarNama;
         }
     
         // Update data produk

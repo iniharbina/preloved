@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         @if($product->gambar)
-                                            <img src="{{ asset('storage/product/' . $product->gambar) }}" width="100" height="100" class="mt-2">
+                                            <img src="{{ asset('product/' . $product->gambar) }}" width="100" height="100" class="mt-2">
                                         @endif
                                     </div>
                                 </div>

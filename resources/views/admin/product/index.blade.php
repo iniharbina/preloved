@@ -44,7 +44,7 @@
                         <tr>
                             <td>{{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}</td>
                             <td>
-                                <img src="{{ asset('storage/product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}" width="100" height="100">
+                                <img src="{{ asset('product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}" width="100" height="100">
                             </td>
                             <td>{{ $prod->category->nama_kategori ?? 'Kategori tidak ditemukan'}}</td>
                             <td>{{ $prod->nama_produk }}</td>
