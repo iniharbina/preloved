@@ -6,6 +6,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 Route::get('/admin', function () {
     return view('admin.index');
@@ -23,10 +24,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])->name('shop.category');
 
-// Product Routes
-// Route::resource('product', ProductController::class);
-// Route::get('product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
-// Route::put('product/{id}', [ProductController::class, 'update'])->name('product.update');
+// Cart Routes
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
 Route::prefix('admin')->name('admin.')->group(function () {
     // Definisikan resource route dengan prefix admin
     Route::resource('product', ProductController::class);
