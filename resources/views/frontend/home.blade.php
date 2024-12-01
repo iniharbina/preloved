@@ -16,64 +16,11 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{{asset('css/fontawesome.min.css')}}">
-<!--
-
-TemplateMo 559 Zay Shop
-
-https://templatemo.com/tm-559-zay-shop
-
--->
 </head>
 
 <body>
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container d-flex justify-content-between align-items-center">
-
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-                Noviara Preloved
-            </a>
-
-
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a href="{{ route('home.index')}}" class="nav-link {{request()->is('/') ? 'active': ''}} ">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">My Account</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </nav>
+    @include('frontend.partials.navbar')
     <!-- Close Header -->
 
     <!-- Modal -->
@@ -186,82 +133,18 @@ https://templatemo.com/tm-559-zay-shop
         <div class="row">
             <div class="col-12 col-md-6 p-5 mt-3 d-flex flex-column align-items-center">
                 <img src="{{asset('img/baju3.jpeg')}}" class="rounded-circle img-fluid border" style="width: 300px; height: 300px; object-fit: cover;"></a>
-                <h5 class="text-center mt-3 mb-3">Women's Wear</h5>
-                <p class="text-center"><a href="{{ route('shop.index') }}" class="btn btn-success">Go Shop</a></p>
+                <h5 class="text-center mt-3 mb-3">Baju</h5>
             </div>
             <div class="col-12 col-md-6 p-5 mt-3 d-flex flex-column align-items-center">
                 <img src="{{asset('img/baju4.jpg')}}" class="rounded-circle img-fluid border" style="width: 300px; height: 300px; object-fit: cover;"></a>
-                <h5 class="text-center mt-3 mb-3">Men's Wear</h5>
-                <p class="text-center"><a href="{{ route('shop.index') }}" class="btn btn-success">Go Shop</a></p>
+                <h5 class="text-center mt-3 mb-3">Celana</h5>
             </div>
         </div>
     </section>
     <!-- End Categories of The Month -->
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Noviara Preloved</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw"></i>
-                            Magetan
-                        </li>
-                        <li>
-                            <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Women's Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Wear</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Home</a></li>
-                        <li><a class="text-decoration-none" href="#">Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="row text-light mb-4">
-                <div class="col-12 mb-3">
-                    <div class="w-100 my-3 border-top border-light"></div>
-                </div>
-                <div class="col-auto me-auto">
-                    <ul class="list-inline text-left footer-icons">
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="w-100 bg-black py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-left text-light">
-                            Copyright &copy; 2024 Noviara Preloved
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
+    @include('frontend.partials.footer')
     <!-- End Footer -->
 
     <!-- Start Script -->

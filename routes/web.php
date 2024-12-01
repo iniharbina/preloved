@@ -21,6 +21,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 // Shop Routes
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])->name('shop.category');
+
 // Product Routes
 // Route::resource('product', ProductController::class);
 // Route::get('product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
