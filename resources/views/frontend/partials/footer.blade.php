@@ -9,9 +9,13 @@
                         <i class="fas fa-map-marker-alt fa-fw"></i>
                         Magetan
                     </li>
+                </ul>
+                <!-- Instagram link added below Magetan -->
+                <ul class="list-unstyled text-light footer-link-list">
                     <li>
-                        <i class="fa fa-phone fa-fw"></i>
-                        <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/preloved_byavii?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                            <i class="fab fa-instagram fa-lg fa-fw"></i> Instagram
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -20,7 +24,7 @@
                 <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
                 <ul class="list-unstyled text-light footer-link-list">
                     <li><a class="text-decoration-none" href="{{ route('home.index')}}">Home</a></li>
-                    <li><a class="text-decoration-none" href="#">Contact</a></li>
+                    <li><a class="text-decoration-none" href="https://wa.me/6282140084157" target="_blank">Contact</a></li>
                 </ul>
             </div>
 
@@ -32,9 +36,7 @@
             </div>
             <div class="col-auto me-auto">
                 <ul class="list-inline text-left footer-icons">
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                    </li>
+                    <!-- You can remove the Instagram icon here since it's now above -->
                 </ul>
             </div>
         </div>
