@@ -46,9 +46,10 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only('email_customer', 'password');
+
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('http://127.0.0.1:8000')
-                        ->withSuccess('You have Successfully loggedin');
+            // Login berhasil, arahkan ke halaman yang sesuai
+            return redirect()->intended(route('profile')); // Arahkan ke halaman profil setelah login
         }
 
         return redirect("login")->withError('Oppes! You have entered invalid credentials');
