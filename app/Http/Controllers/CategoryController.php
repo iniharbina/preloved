@@ -3,26 +3,75 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Product; // Pastikan ini ada
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $products = Product::all(); // Mengambil semua produk dari database
-        return view('pages.category.index', compact('products')); // Mengirim produk ke view
+        $category = Category::all(); // Ambil semua kategori
+        return view('admin.category.index', compact('category')); // Pastikan path view sesuai
     }
 
-    public function showMaleCategory()
+    public function create()
     {
-        $products = Product::where('category_id', 1)->get(); // Ambil produk untuk kategori laki-laki
-        return view('pages.products.index', compact('products'));
+        $product = Product::all(); // Ambil semua produk (jika perlu dihubungkan)
+        return view('admin.category.create', compact('product'));
     }
 
-    public function showFemaleCategory()
+    public function store(Request $request)
     {
-        $products = Product::where('category_id', 2)->get(); // Ambil produk untuk kategori perempuan
-        return view('pages.products.index', compact('products'));
+        $validatedData = $request->validate([
+            'nama_kategori' => 'required|max:10',
+        ]);
+
+        // Simpan kategori baru
+        Category::create($validatedData);
+
+        return redirect()->route('admin.category.index')->with('success', 'Category berhasil ditambahkan!');
+    }
+
+    public function show($id_kategori)
+    {
+        $category = Category::where('id_kategori', $id_kategori)->first();
+
+        if (!$category) {
+            abort(404, 'Kategori tidak ditemukan');
+        }
+
+        $product = Product::where('id_kategori', $id_kategori)->get();
+
+        return view('admin.category.show', compact('category', 'product'));
+    }
+
+    public function edit(Category $category)
+    {
+        $product = Product::all(); // Ambil semua produk (jika diperlukan)
+        return view('admin.category.edit', compact('category', 'product'));
+    }
+
+    public function update(Request $request, $id_kategori)
+    {
+        $validatedData = $request->validate([
+            'nama_kategori' => 'required|max:255',
+        ]);
+
+        // Update data kategori
+        $category = Category::findOrFail($id_kategori);
+
+        $category->update([
+            'nama_kategori' => $validatedData['nama_kategori'],
+        ]);
+    
+
+        return redirect()->route('admin.category.index')->with('success', 'Kategori berhasil diperbarui!');
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return redirect()->route('admin.category.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

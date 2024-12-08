@@ -2,21 +2,28 @@
 
 @section('content')
 
-    <h1 class="ml-5">Daftar Produk</h1>
-    <!-- Menampilkan Notifikasi -->
-    @if(session('success'))
-        <div class="alert alert-success mt-3" id="successAlert">
-            {{ session('success') }}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Daftar Produk</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger mt-3" id="errorAlert">
-            {{ session('error') }}
-        </div>
-    @endif
-
+    </div>
     <div class="card mx-auto" style="max-width: 1200px;">
         <div class="card-body">
+            <!-- Menampilkan Notifikasi -->
+            @if(session('success'))
+            <div class="alert alert-success mt-3" id="successAlert">
+                {{ session('success') }}
+            </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger mt-3" id="errorAlert">
+                    {{ session('error') }}
+                </div>
+            @endif
             <a href="{{ route('admin.product.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
             <div class="table-responsive">
                 <table id="productTable" class="table table-bordered table-hover">
@@ -33,20 +40,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($product as $product)
+                        @foreach ($product as $prod)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}</td>
                             <td>
-                                <img src="{{ asset('storage/product/' . $product->gambar) }}" alt="{{ $product->nama_produk }}" width="100" height="100">
+                                <img src="{{ asset('product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}" width="100" height="100">
                             </td>
-                            <td>{{ $product->category->nama_kategori ?? 'Kategori tidak ditemukan'}}</td>
-                            <td>{{ $product->nama_produk }}</td>
-                            <td>{{ $product->merk }}</td>
-                            <td>{{ $product->harga }}</td>
-                            <td>{{ $product->stok }}</td>
+                            <td>{{ $prod->category->nama_kategori ?? 'Kategori tidak ditemukan'}}</td>
+                            <td>{{ $prod->nama_produk }}</td>
+                            <td>{{ $prod->merk }}</td>
+                            <td>{{ $prod->harga }}</td>
+                            <td>{{ $prod->stok }}</td>
                             <td>
-                                <a href="{{ route('admin.product.edit', $product) }}" class="btn btn-warning btn-custom">Edit</a>
-                                <form id="deleteForm{{ $product->id_produk }}" action="{{ route('admin.product.destroy', $product) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('admin.product.edit', $prod) }}" class="btn btn-warning btn-custom">Edit</a>
+                                <form id="deleteForm{{ $prod->id_produk }}" action="{{ route('admin.product.destroy', $prod) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-custom">Delete</button>
@@ -56,6 +63,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end mt-3">
+                    {{ $product->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
     </div>
@@ -77,6 +87,14 @@
         .btn-custom {
         width: 100px; /* Atur lebar tombol sesuai kebutuhan */
         }
+        .pagination {
+        font-size: 12px !important;
+        padding: 5px !important;
+        }
+        .pagination .page-item .page-link {
+            padding: 3px 8px !important;
+            font-size: 12px !important;
+        }
     </style>
 @endpush
 
@@ -92,7 +110,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                "paging": true,
+                "paging": false,
                 "searching": true,
                 "ordering": true,
             });
