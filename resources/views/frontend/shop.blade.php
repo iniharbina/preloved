@@ -70,7 +70,7 @@
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
                                     <!-- Gambar produk -->
-                                    <img class="card-img rounded-0 img-fluid" src="{{ url('product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}">
+                                   <img class="card-img rounded-0 img-fluid" src="{{ url('product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         <ul class="list-unstyled">
                                             <li><a class="btn btn-success text-white mt-2" href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
@@ -106,7 +106,7 @@
             </div>
 
         </div>
-    </div>
+    </div> <
     <!-- End Content -->
 
     <!-- Start Footer -->

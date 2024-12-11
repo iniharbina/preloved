@@ -22,7 +22,9 @@ Route::post('post-registration', [AuthController::class, 'postRegistration'])->n
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile Routes
-Route::get('profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::get('/editprofile', [ProfileController::class, 'edit'])->name('editprofile')->middleware('auth');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('update')->middleware('auth');
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
