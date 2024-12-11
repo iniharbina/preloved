@@ -1,58 +1,74 @@
 @extends('admin.admin')
 
 @section('content')
-
-    
+<br></br>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Card for Category List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title" style="display: inline;">Daftar User</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <!-- Button to Add Category placed below the header -->
+                            <div class="col">
+                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm">
+                                    Tambah User
+                                </a>
+                            </div>
+                        </div>
+                        @if ($user->isEmpty())
+                            <p class="text-center">Belum ada user yang ditambahkan.</p>
+                        @else
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Foto</th>
+                                        <th>Nama User</th>
+                                        <th>Email</th>
+                                        <th>No HP</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($user as $usr)
+                                    <tr>
+                                        <td>{{ ($user->currentPage() - 1) * $user->perPage() + $loop->iteration }}</td>
+                                        <td>
+                                            <img src="{{ asset('user/' . $usr->foto) }}" alt="{{ $usr->nama_customer }}" style="width: 100px;">
+                                        </td>
+                                        <td>{{ $usr->nama_customer }}</td>
+                                        <td>{{ $usr->email_customer }}</td>
+                                        <td>{{ $usr->no_hp }}</td>
+                                        <td>{{ $usr->status }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.user.edit', $usr->id_user) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <form action="{{ route('admin.user.destroy', $usr->id_user) }}" method="POST" style="display: inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus kategori ini?')">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                {{ $user->links() }}
+                            </div>
+                            
+                        @endif
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
-
-@push('styles')
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-
-    <!-- Styling untuk Notifikasi -->
-    <style>
-        .alert {
-            width: 100%; /* Lebar notifikasi sama dengan tabel, dengan padding */
-            margin: 0 auto;
-            text-align: center;
-            font-size: 16px;
-        }
-        .btn-custom {
-        width: 100px; /* Atur lebar tombol sesuai kebutuhan */
-        }
-        .pagination {
-        font-size: 12px !important;
-        padding: 5px !important;
-        }
-        .pagination .page-item .page-link {
-            padding: 3px 8px !important;
-            font-size: 12px !important;
-        }
-    </style>
-@endpush
-
-@push('scripts')
-    <!-- DataTables -->
-    <script src="{{ asset('lte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('lte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('#productTable').DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "paging": false,
-                "searching": true,
-                "ordering": true,
-            });
-
-            // Menutup notifikasi otomatis setelah 3 detik
-            setTimeout(function() {
-                $('#successAlert, #errorAlert').fadeOut('slow');
-            }, 1000);  // Waktu 3 detik (3000 milidetik)
-        });
-    </script>
-@endpush

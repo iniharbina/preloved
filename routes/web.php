@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 Route::get('/admin', function () {
     return view('admin.index');
@@ -35,5 +36,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Definisikan resource route dengan prefix admin
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('user', UserController::class);
 });
 

@@ -28,7 +28,7 @@
                                     <tbody>
                                     @foreach ($product as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}</td>
                                             <td>{{ $item->nama_produk }}</td>
                                             <td>{{ $item->harga }}</td>
                                             <td>
@@ -38,6 +38,9 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                <div class="d-flex justify-content-end mt-3">
+                                    {{ $product->links('pagination::bootstrap-4') }}
+                                </div>
                             @endif
                         </div>
                         <!-- /.card-body -->

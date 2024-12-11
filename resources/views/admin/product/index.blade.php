@@ -13,6 +13,7 @@
     </div>
     <div class="card mx-auto" style="max-width: 1200px;">
         <div class="card-body">
+            <a href="{{ route('admin.product.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
             <!-- Menampilkan Notifikasi -->
             @if(session('success'))
             <div class="alert alert-success mt-3" id="successAlert">
@@ -24,7 +25,6 @@
                     {{ session('error') }}
                 </div>
             @endif
-            <a href="{{ route('admin.product.create') }}" class="btn btn-primary mb-3">Tambah Produk</a>
             <div class="table-responsive">
                 <table id="productTable" class="table table-bordered table-hover">
                     <thead>
@@ -44,7 +44,7 @@
                         <tr>
                             <td>{{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}</td>
                             <td>
-                                <img src="{{ asset('product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}" width="100" height="100">
+                                <img src="{{ asset('product/' . $prod->gambar) }}" alt="{{ $prod->nama_produk }}" style="width: 100px;">
                             </td>
                             <td>{{ $prod->category->nama_kategori ?? 'Kategori tidak ditemukan'}}</td>
                             <td>{{ $prod->nama_produk }}</td>

@@ -52,7 +52,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route('admin.user.index') }}" 
+            class="nav-link {{ Request::routeIs('admin.user.index') ? 'active' : '' }}">
               <i class="nav-icon fa-solid fa-user"></i>
               <p>User</p>
             </a>

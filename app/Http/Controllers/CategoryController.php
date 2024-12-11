@@ -40,7 +40,7 @@ class CategoryController extends Controller
             abort(404, 'Kategori tidak ditemukan');
         }
 
-        $product = Product::where('id_kategori', $id_kategori)->get();
+        $product = Product::where('id_kategori', $id_kategori)->paginate(5);
 
         return view('admin.category.show', compact('category', 'product'));
     }

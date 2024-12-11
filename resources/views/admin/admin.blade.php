@@ -28,8 +28,13 @@
   <!-- Tambahkan Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-
+  <!-- CSS untuk layout -->
+  <style>
+    .alert {
+        width: 100%;
+        max-width: 100%;
+    }
+</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -43,6 +48,24 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    @if (session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     @yield('content')
   </div>
   
@@ -94,5 +117,13 @@
 <script src="{{asset('lte/dist/js/pages/dashboard.js')}}"></script>
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.4/dist/sweetalert2.all.min.js"></script>
+<script>
+  setTimeout(() => {
+      const alert = document.querySelector('.alert');
+      if (alert) {
+          alert.remove();
+      }
+  }, 3000); // Menghilangkan pesan setelah 5 detik
+</script>
 </body>
 </html>
