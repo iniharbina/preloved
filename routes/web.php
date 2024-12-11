@@ -8,6 +8,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/admin', function () {
     return view('admin.index');
@@ -36,4 +38,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
 });
+
+Route::prefix('admin')->middleware('RoleMiddleware:admin')->group(function(){
+    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.index');
+
+});
+
+Route::prefix('customer')->middleware('RoleMiddleware:customer')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('frontend.home');
+
+});
+
 

@@ -40,19 +40,26 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request): RedirectResponse
     {
+        $input = $request->all();
+
+        // Validasi input login
         $request->validate([
-            'email_customer' => 'required',
+            'email_customer' => 'required|email',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email_customer', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // Login berhasil, arahkan ke halaman yang sesuai
-            return redirect()->intended(route('profile')); // Arahkan ke halaman profil setelah login
+        // Coba login
+        if (auth()->attempt(array('email_customer' => $input['email_customer'], 'password' => $input['password']))) {
+            // Jika berhasil login, periksa apakah user adalah admin atau customer
+            if (auth()->user()->role === 'admin') {
+                return redirect()->route('admin.index');  // Arahkan ke dashboard admin
+            } else {
+                return redirect()->route('frontend.home');  // Arahkan ke dashboard customer
+            }
+        } else {
+            // Jika login gagal, arahkan kembali ke halaman login dengan pesan error
+            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
         }
-
-        return redirect("login")->withError('Oppes! You have entered invalid credentials');
     }
 
 
@@ -72,6 +79,8 @@ class AuthController extends Controller
 
     // Hash password sebelum disimpan
     $validatedData['password'] = bcrypt($validatedData['password']);
+
+    $validatedData['role'] = 'customer';
 
     // Simpan ke database
     $user = User::create($validatedData);
