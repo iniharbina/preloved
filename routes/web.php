@@ -8,6 +8,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 
 Route::get('/admin', function () {
@@ -21,7 +23,9 @@ Route::post('post-registration', [AuthController::class, 'postRegistration'])->n
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile Routes
-Route::get('profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::get('/editprofile', [ProfileController::class, 'edit'])->name('editprofile')->middleware('auth');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('update')->middleware('auth');
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
@@ -38,4 +42,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('user', UserController::class);
 });
+
+Route::prefix('admin')->middleware('RoleMiddleware:admin')->group(function(){
+    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.index');
+
+});
+
+Route::prefix('customer')->middleware('RoleMiddleware:customer')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('frontend.home');
+
+});
+
 

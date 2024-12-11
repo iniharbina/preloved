@@ -20,6 +20,7 @@ class User extends Authenticatable
         'no_hp',
         'foto',
         'status',
+        'role',
     ];
 
     // public function getAuthIdentifierName()
@@ -42,8 +43,18 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
+     protected $casts = [
+         'email_verified_at' => 'datetime',
+     ];
+
+     public function isAdmin()
+     {
+        return $this->role === 1;
+     }
+
+     public function isCustomer()
+     {
+        return $this->role === 0;
+     }
 
 }
