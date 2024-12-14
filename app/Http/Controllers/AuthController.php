@@ -49,14 +49,16 @@ class AuthController extends Controller
         ]);
 
         // Coba login
-        if (auth()->attempt(array('email_customer' => $input['email_customer'], 'password' => $input['password']))) {
-            // Jika berhasil login, periksa apakah user adalah admin atau customer
-            if (auth()->user()->role === 'admin') {
-                return redirect()->route('admin.index');  // Arahkan ke dashboard admin
-            } else {
-                return redirect()->route('frontend.home');  // Arahkan ke dashboard customer
+        if (Auth::attempt(['email_customer' => $input['email_customer'], 'password' => $input['password']])) {
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect('/admin/dashboard'); // Halaman admin
             }
-        } else {
+
+            if ($user->role === 'customer') {
+                return redirect('profile'); // Halaman customer
+            }
             // Jika login gagal, arahkan kembali ke halaman login dengan pesan error
             return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
         }
@@ -126,11 +128,12 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    public function logout(): RedirectResponse
+    public function logout(Request $request): RedirectResponse
     {
-        Session::flush();
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return Redirect('login');
+        return Redirect('login')->with('success','Anda telah logout.');
     }
 }

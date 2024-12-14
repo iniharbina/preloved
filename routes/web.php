@@ -20,7 +20,7 @@ Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile Routes
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
@@ -51,6 +51,16 @@ Route::prefix('admin')->middleware('RoleMiddleware:admin')->group(function(){
 Route::prefix('customer')->middleware('RoleMiddleware:customer')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('frontend.home');
 
+});
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [AuthController::class, 'index'])->name('login');
+    Route::post('/login', [AuthController::class, 'postlogin']);
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/customer/dashboard', [CustomerController::class, 'index'])->name('frontend.home');
 });
 
 

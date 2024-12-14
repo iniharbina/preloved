@@ -27,6 +27,15 @@
                     <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                     <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                 </a>
+                <a class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST" class="nav-link" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-link" style="background: none; border: none; padding: 0;">
+                            <i class="fa fa-fw fa-sign-out-alt text-dark"></i>
+                        </button>
+                    </form>
+                </a>
+
             </div>
         </div>
     </div>
