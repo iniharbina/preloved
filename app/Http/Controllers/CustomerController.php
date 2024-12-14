@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         return view('frontend.home'); // Tampilan untuk customer
     }

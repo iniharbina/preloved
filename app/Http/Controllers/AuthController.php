@@ -56,7 +56,6 @@ class AuthController extends Controller
             } else {
                 return redirect()->route('profile');  // Arahkan ke dashboard customer
             }
-        } else {
             // Jika login gagal, arahkan kembali ke halaman login dengan pesan error
             return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
         }
@@ -126,11 +125,12 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    public function logout(): RedirectResponse
+    public function logout(Request $request): RedirectResponse
     {
-        Session::flush();
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return Redirect('login');
+        return Redirect('login')->with('success','Anda telah logout.');
     }
 }
