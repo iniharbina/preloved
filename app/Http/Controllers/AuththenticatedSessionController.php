@@ -22,7 +22,7 @@ class AuththenticatedSessionController extends Controller
             if ($role === 'admin') {
                 return redirect()->route('/admin');
             } elseif ($role === 'customer') {
-                return redirect()->route('frontend.home');
+                return redirect()->route('/profile');
             }
         }
 

@@ -54,7 +54,7 @@ class AuthController extends Controller
             if (auth()->user()->role === 'admin') {
                 return redirect()->route('admin.index');  // Arahkan ke dashboard admin
             } else {
-                return redirect()->route('frontend.home');  // Arahkan ke dashboard customer
+                return redirect()->route('profile');  // Arahkan ke dashboard customer
             }
         } else {
             // Jika login gagal, arahkan kembali ke halaman login dengan pesan error

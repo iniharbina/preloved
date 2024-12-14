@@ -31,11 +31,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 // Shop Routes
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop/product/{id_produk}', [ShopController::class, 'showSingle'])->name('shop.single');
 Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])->name('shop.category');
 
 // Cart Routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('/shop/product/{id_produk}', [ShopController::class, 'showSingle'])->name('shop.single');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Definisikan resource route dengan prefix admin
