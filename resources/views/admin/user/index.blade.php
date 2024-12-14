@@ -33,6 +33,7 @@
                                         <th>Email</th>
                                         <th>No HP</th>
                                         <th>Status</th>
+                                        <th>Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +47,7 @@
                                         <td>{{ $usr->email_customer }}</td>
                                         <td>{{ $usr->no_hp }}</td>
                                         <td>{{ $usr->status }}</td>
+                                        <td>{{ ucfirst($usr->role) }}</td> 
                                         <td>
                                             <a href="{{ route('admin.user.edit', $usr->id_user) }}" class="btn btn-warning btn-sm">Edit</a>
                                             <form action="{{ route('admin.user.destroy', $usr->id_user) }}" method="POST" style="display: inline-block;">

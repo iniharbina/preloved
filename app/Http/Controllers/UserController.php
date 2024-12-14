@@ -29,6 +29,7 @@ class UserController extends Controller
             'no_hp' => 'required|string|max:15',
             'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:aktif,non-aktif',
+            'role' => 'required|in:admin,customer',
         ]);
 
 
@@ -45,6 +46,7 @@ class UserController extends Controller
             'no_hp' => $request->no_hp,
             'foto' => $fotoNama,
             'status' => $request->status,
+            'role' => $request->role,
         ]);
 
         return redirect()->route('admin.user.index')->with('success', 'User berhasil ditambahkan!');
@@ -65,6 +67,7 @@ class UserController extends Controller
             'no_hp' => 'required|string|max:15',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Foto opsional saat update
             'status' => 'required|in:aktif,non-aktif',
+            'role' => 'required|in:admin,customer',
         ]);
 
         $user = User::findOrFail($id);
@@ -88,6 +91,7 @@ class UserController extends Controller
             'no_hp' => $validatedData['no_hp'],
             'foto' => $fotoNama,
             'status' => $validatedData['status'],
+            'role' => $validatedData['role'],
         ]);
 
         return redirect()->route('admin.user.index')->with('success', 'User berhasil diperbarui!');
