@@ -58,8 +58,8 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-center">
-                                {{ $user->links() }}
+                            <div class="d-flex justify-content-end mt-3">
+                                {{ $user->links('pagination::bootstrap-4') }}
                             </div>
                             
                         @endif

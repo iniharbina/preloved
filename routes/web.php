@@ -35,6 +35,7 @@ Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])
 
 // Cart Routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/shop/product/{id_produk}', [ShopController::class, 'showSingle'])->name('shop.single');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // Definisikan resource route dengan prefix admin
