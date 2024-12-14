@@ -49,15 +49,12 @@ class AuthController extends Controller
         ]);
 
         // Coba login
-        if (Auth::attempt(['email_customer' => $input['email_customer'], 'password' => $input['password']])) {
-            $user = Auth::user();
-
-            if ($user->role === 'admin') {
-                return redirect('/admin/dashboard'); // Halaman admin
-            }
-
-            if ($user->role === 'customer') {
-                return redirect('profile'); // Halaman customer
+        if (auth()->attempt(array('email_customer' => $input['email_customer'], 'password' => $input['password']))) {
+            // Jika berhasil login, periksa apakah user adalah admin atau customer
+            if (auth()->user()->role === 'admin') {
+                return redirect()->route('admin.index');  // Arahkan ke dashboard admin
+            } else {
+                return redirect()->route('profile');  // Arahkan ke dashboard customer
             }
             // Jika login gagal, arahkan kembali ke halaman login dengan pesan error
             return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');

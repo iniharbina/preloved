@@ -68,3 +68,15 @@
     </div>
 </section>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.getElementById('foto');
+        const fileLabel = document.querySelector('.custom-file-label');
+
+        fileInput.addEventListener('change', function () {
+            const fileName = this.files[0].name;
+            fileLabel.textContent = fileName;
+        });
+    });
+</script>

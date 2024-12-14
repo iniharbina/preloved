@@ -29,6 +29,12 @@ class ShopController extends Controller
         return view('frontend.shop', compact('product', 'category', 'id_kategori'));
     }
     
-    
-
+    public function showSingle($id_produk)
+    {
+        // Cari produk berdasarkan id_produk
+        $product = Product::where('id_produk', $id_produk)->firstOrFail();
+        
+        // Kirim data produk ke view
+        return view('frontend.shop-single', compact('product'));
+    }
 }
