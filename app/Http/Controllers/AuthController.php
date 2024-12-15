@@ -58,7 +58,7 @@ class AuthController extends Controller
 
             // Jika status aktif, periksa role pengguna
             if (auth()->user()->role === 'admin') {
-                return redirect()->route('admin.index');  // Arahkan ke dashboard admin
+                return redirect()->route('admin.admin');  // Arahkan ke dashboard admin
             } else {
                 return redirect()->route('profile');  // Arahkan ke dashboard customer
             }
@@ -86,16 +86,16 @@ class AuthController extends Controller
     // Hash password sebelum disimpan
     $validatedData['password'] = bcrypt($validatedData['password']);
 
+    $validatedData['status'] = 'Aktif';
     $validatedData['role'] = 'customer';
 
     // Simpan ke database
     $user = User::create($validatedData);
 
     if ($user) {
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
-
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');   
+    }
     return back()->with('error', 'Registrasi gagal, coba lagi.');
-}
 
     }
 

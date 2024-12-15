@@ -16,13 +16,17 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        // Jika user login tetapi role tidak sesuai, abort dengan error 403
-        if (Auth::check() && Auth::user()->role === $role) {
-            return $next($request);
+        // Redirect ke login jika user belum login
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
 
-        // Jika pengguna tidak memiliki role yang sesuai
-        abort(403, 'Unauthorized action.');
-    }
+        // Abort jika role tidak sesuai
+        if (Auth::user()->role !== $role) {
+            abort(403, 'Unauthorized action.');
+        }
 
+        // Lanjutkan jika validasi lolos
+        return $next($request);
+    }
 }

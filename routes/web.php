@@ -12,59 +12,51 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 
-Route::get('/admin', function () {
-    return view('admin.index');
-})->name('admin.admin');
+// Auth Routes
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [AuthController::class, 'index'])->name('login');
+    Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');
+    Route::get('registration', [AuthController::class, 'registration'])->name('register');
+    Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
+});
 
-Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');
-Route::get('registration', [AuthController::class, 'registration'])->name('register');
-Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile Routes
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
-Route::get('/editprofile', [ProfileController::class, 'edit'])->name('editprofile')->middleware('auth');
-Route::put('/profile/update', [ProfileController::class, 'update'])->name('update')->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/editprofile', [ProfileController::class, 'edit'])->name('editprofile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('update');
+});
 
+// Home and Shop Routes
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-
-// Shop Routes
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/product/{id_produk}', [ShopController::class, 'showSingle'])->name('shop.single');
 Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])->name('shop.category');
 
 // Cart Routes
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/cart/add/{id_produk}', [CartController::class, 'add'])->name('cart.add');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    // Definisikan resource route dengan prefix admin
+// Admin Routes (Admin Middleware)
+Route::middleware(['auth', 'RoleMiddleware:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('admin');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('index');
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('user', UserController::class);
 });
 
-Route::prefix('admin')->middleware('RoleMiddleware:admin')->group(function(){
-    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.index');
-
+// Customer Routes (Customer Middleware)
+Route::middleware(['auth', 'RoleMiddleware:customer'])->prefix('customer')->name('customer.')->group(function () {
+    Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
 });
 
-Route::prefix('customer')->middleware('RoleMiddleware:customer')->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('frontend.home');
-
-});
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [AuthController::class, 'index'])->name('login');
-    Route::post('/login', [AuthController::class, 'postlogin']);
-});
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
-});
-Route::middleware(['auth'])->group(function () {
-    Route::get('/customer/dashboard', [CustomerController::class, 'index'])->name('frontend.home');
-});
-
+// Additional Admin Route Example for Dashboard
+Route::middleware(['auth', 'RoleMiddleware:admin'])->get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
 
