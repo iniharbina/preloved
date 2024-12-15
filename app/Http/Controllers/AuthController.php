@@ -49,16 +49,23 @@ class AuthController extends Controller
         ]);
 
         // Coba login
-        if (auth()->attempt(array('email_customer' => $input['email_customer'], 'password' => $input['password']))) {
-            // Jika berhasil login, periksa apakah user adalah admin atau customer
+        if (auth()->attempt(['email_customer' => $input['email_customer'], 'password' => $input['password']])) {
+            // Periksa status pengguna setelah login
+            if (auth()->user()->status !== 'Aktif') {
+                auth()->logout(); // Logout jika status bukan 'Aktif'
+                return redirect()->route('login')->with('error', 'Akun Anda tidak aktif.');
+            }
+
+            // Jika status aktif, periksa role pengguna
             if (auth()->user()->role === 'admin') {
                 return redirect()->route('admin.index');  // Arahkan ke dashboard admin
             } else {
                 return redirect()->route('profile');  // Arahkan ke dashboard customer
             }
-            // Jika login gagal, arahkan kembali ke halaman login dengan pesan error
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
         }
+
+        // Jika login gagal
+        return redirect()->route('login')->with('error', 'Email atau Password salah.');
     }
 
 

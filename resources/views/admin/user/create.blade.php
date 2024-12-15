@@ -52,8 +52,8 @@
                             <div class="form-group">
                                 <label for="status">Status</label>
                                 <select name="status" id="status" class="form-control" required>
-                                    <option value="aktif">Aktif</option>
-                                    <option value="non-aktif">Non-Aktif</option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Tidak Aktif">Tidak Aktif</option>
                                 </select>
                             </div>
                             <div class="form-group">

@@ -28,7 +28,7 @@ class UserController extends Controller
             'email_customer' => 'required|string|max:30|email|unique:user,email_customer',
             'no_hp' => 'required|string|max:15',
             'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'status' => 'required|in:aktif,non-aktif',
+            'status' => 'required|in:Aktif,Tidak Aktif',
             'role' => 'required|in:admin,customer',
         ]);
 
@@ -66,7 +66,7 @@ class UserController extends Controller
             'password' => 'nullable|confirmed|string|min:6',
             'no_hp' => 'required|string|max:15',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Foto opsional saat update
-            'status' => 'required|in:aktif,non-aktif',
+            'status' => 'required|in:Aktif,Tidak Aktif',
             'role' => 'required|in:admin,customer',
         ]);
 

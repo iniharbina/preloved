@@ -24,21 +24,21 @@
                 <img src='{{ asset('img/logo contoh.png') }}' width="100">
               </a>
             </div>
-            <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
+            <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Masuk ke akunmu</h2>
             <form method="POST" action="{{ route('login.post') }}">
               @csrf
 
-              @session('error')
+              @if(session('error'))
                   <div class="alert alert-danger" role="alert">
-                      {{ $value }}
+                      {{ session('error') }}
                   </div>
-              @endsession
+              @endif
 
               <div class="row gy-2 overflow-hidden">
                 <div class="col-12">
                   <div class="form-floating mb-3">
                     <input type="email" class="form-control @error('email_customer') is-invalid @enderror" name="email_customer" id="email_customer" placeholder="name@example.com" required>
-                    <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                    <label for="email" class="form-label">{{ __('Alamat Email') }}</label>
                   </div>
                   @error('email_customer')
                         <span class="invalid-feedback" role="alert">
@@ -58,23 +58,12 @@
                   @enderror
                 </div>
                 <div class="col-12">
-                  <div class="d-flex gap-2 justify-content-between">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" name="rememberMe" id="rememberMe">
-                      <label class="form-check-label text-secondary" for="rememberMe">
-                        Keep me logged in
-                      </label>
-                    </div>
-                    <a href="#!" class="link-primary text-decoration-none">{{ __('forgot password?') }}</a>
-                  </div>
-                </div>
-                <div class="col-12">
                   <div class="d-grid my-3">
                     <button class="btn btn-primary btn-lg" type="submit">{{ __('Login') }}</button>
                   </div>
                 </div>
                 <div class="col-12">
-                  <p class="m-0 text-secondary text-center">Don't have an account? <a href="{{ route('register') }}" class="link-primary text-decoration-none">Sign up</a></p>
+                  <p class="m-0 text-secondary text-center">Belum punya akun? <a href="{{ route('register') }}" class="link-primary text-decoration-none">Daftar</a></p>
                 </div>
               </div>
             </form>
