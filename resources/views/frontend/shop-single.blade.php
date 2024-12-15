@@ -53,19 +53,26 @@
                                 </li>
                             </ul>
 
-                            <form action="" method="GET">
-                                <input type="hidden" name="product-title" value="Activewear">
-                                <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <a href="https://wa.me/6283831913249" class="btn btn-success btn-lg d-flex align-items-center justify-content-center" role="button">
-                                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 24px; height: 24px; margin-right: 10px;">
-                                        </a>
-                                    </div>
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="d-flex justify-content-start gap-3 mt-4">
+                                <!-- Tombol WhatsApp -->
+                                <a href="https://wa.me/6283831913249?text={{ urlencode('Saya ingin melakukan checkout untuk produk ' . $product->nama_produk . ' dengan harga Rp' . number_format($product->harga, 0, ',', '.')) }}" 
+                                   class="btn btn-success d-flex align-items-center" role="button" style="width: 150px; justify-content: center;">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 24px; height: 24px; margin-right: 10px;">
+                                    WhatsApp
+                                </a>
+                
+                                <!-- Form Checkout -->
+                                <form action="{{ route('checkout-process') }}" method="GET">
+                                    @csrf
+                                    <input type="hidden" name="id_order" value="{{ rand() }}">
+                                    <input type="hidden" name="id_produk" value="{{ $product->id_produk }}">
+                                    <input type="hidden" name="harga" value="{{ $product->harga }}">
+                
+                                    <button type="submit" class="btn btn-success d-flex align-items-center" style="width: 150px; justify-content: center;">
+                                        Checkout
+                                    </button>
+                                </form>
+                            </div>
 
                         </div>
                     </div>

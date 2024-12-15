@@ -11,6 +11,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\TransactionController;
 
 // Auth Routes
 Route::middleware(['guest'])->group(function () {
@@ -35,11 +37,17 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/product/{id_produk}', [ShopController::class, 'showSingle'])->name('shop.single');
 Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])->name('shop.category');
 
-// Cart Routes
-Route::middleware('auth')->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::get('/cart/add/{id_produk}', [CartController::class, 'add'])->name('cart.add');
-});
+// // Cart Routes
+// Route::middleware('auth')->group(function () {
+//     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+//     Route::get('/cart/add/{id_produk}', [CartController::class, 'add'])->name('cart.add');
+// });
+
+//Checkout Routes
+Route::get('/checkout', [CheckoutController::class, 'process'])->middleware('auth')->name("checkout-process");
+Route::get('/checkout/{transaction}', [CheckoutController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::get('/checkout/success/{transaction}', [CheckoutController::class, 'success'])->name("checkout-success");
+Route::get('/transaction', [TransactionController::class, 'index'])->name("transaction");
 
 // Admin Routes (Admin Middleware)
 Route::middleware(['auth', 'RoleMiddleware:admin'])->prefix('admin')->name('admin.')->group(function () {
