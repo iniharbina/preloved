@@ -37,6 +37,7 @@
                                         <th>Produk</th>
                                         <th>Harga</th>
                                         <th>Status</th>
+                                        <th>Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,6 +64,13 @@
                                                     </form>
                                                 @endif
                                             </td>
+                                            <td>
+                                                @if ($trans->tanggal)
+                                                    {{ \Carbon\Carbon::parse($trans->tanggal)->format('d M Y H:i') }}
+                                                @else
+                                                    Tanggal tidak tersedia
+                                                @endif
+                                            </td>                                            
                                         </tr>
                                     @empty
                                         <tr>

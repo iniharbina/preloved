@@ -23,4 +23,31 @@ class TransactionController extends Controller
         return $this->belongsTo(Product::class, 'id_produk', 'id_produk');
     }
 
+    public function notification(Request $request)
+    {
+        // Buat instance Notification dari Midtrans
+        $notification = new \Midtrans\Notification();
+
+        // Cari transaksi berdasarkan order_id
+        $transaction = Transaction::where('id_order', $notification->order_id)->first();
+
+        if ($transaction) {
+            // Ambil status dari notifikasi Midtrans
+            $transactionStatus = $notification->transaction_status;
+
+            // Update status transaksi di database
+            if ($transactionStatus == 'settlement') {
+                $transaction->status_order = 'Berhasil';
+            } elseif ($transactionStatus == 'pending') {
+                $transaction->status_order = 'Pending';
+            } elseif (in_array($transactionStatus, ['deny', 'expire', 'cancel'])) {
+                $transaction->status_order = 'Gagal';
+            }
+
+            $transaction->save(); // Simpan perubahan ke database
+        }
+
+        return response()->json(['message' => 'Notification processed successfully']);
+    }
+
 }

@@ -6,6 +6,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use Carbon\Carbon;
 
 
 class CheckoutController extends Controller
@@ -30,6 +31,7 @@ class CheckoutController extends Controller
         'id_produk' => $request->id_produk,
         'harga' => $request->harga,
         'status_order' => 'Pending',
+        'tanggal' => Carbon::now(),
     ]);
 
     // Konfigurasi Midtrans

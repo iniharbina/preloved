@@ -13,6 +13,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\OrderController;
 
 // Auth Routes
 Route::middleware(['guest'])->group(function () {
@@ -47,7 +48,10 @@ Route::get('/shop/category/{id_kategori?}', [ShopController::class, 'showShop'])
 Route::get('/checkout', [CheckoutController::class, 'process'])->middleware('auth')->name("checkout-process");
 Route::get('/checkout/{transaction}', [CheckoutController::class, 'checkout'])->middleware('auth')->name('checkout');
 Route::get('/checkout/success/{transaction}', [CheckoutController::class, 'success'])->name("checkout-success");
-Route::get('/transaction', [TransactionController::class, 'index'])->name("transaction");
+Route::middleware(['auth'])->group(function () {
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction');
+});
+
 
 // Admin Routes (Admin Middleware)
 Route::middleware(['auth', 'RoleMiddleware:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -58,6 +62,7 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->prefix('admin')->name('admi
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('user', UserController::class);
+    Route::resource('transaction', OrderController::class); 
 });
 
 // Customer Routes (Customer Middleware)

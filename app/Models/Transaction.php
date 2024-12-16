@@ -19,6 +19,7 @@ class Transaction extends Model
         'id_produk',
         'harga',
         'status_order',
+        'tanggal',
         'snap_token',
     ];
 
