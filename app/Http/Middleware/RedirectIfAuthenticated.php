@@ -12,7 +12,10 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  mixed  ...$guards
+     * @return mixed
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
@@ -24,5 +27,4 @@ class RedirectIfAuthenticated
             }
             return $next($request);
         }
-
 }

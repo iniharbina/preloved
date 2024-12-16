@@ -40,7 +40,7 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request): RedirectResponse
     {
-        $input = $request->all();
+        $credentials = $request-> only('email_customer', 'password');
 
         // Validasi input login
         $request->validate([
@@ -48,8 +48,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Coba login
-        if (auth()->attempt(['email_customer' => $input['email_customer'], 'password' => $input['password']])) {
+        if (auth()->attempt($credentials)) {
             // Periksa status pengguna setelah login
             if (auth()->user()->status !== 'Aktif') {
                 auth()->logout(); // Logout jika status bukan 'Aktif'
@@ -58,9 +57,9 @@ class AuthController extends Controller
 
             // Jika status aktif, periksa role pengguna
             if (auth()->user()->role === 'admin') {
-                return redirect()->route('admin.admin');  // Arahkan ke dashboard admin
+                return redirect()->route('admin.dashboard');  // Arahkan ke dashboard admin
             } else {
-                return redirect()->route('profile');  // Arahkan ke dashboard customer
+                return redirect()->route('customer.dashboard');  // Arahkan ke dashboard customer
             }
         }
 
@@ -93,7 +92,7 @@ class AuthController extends Controller
     $user = User::create($validatedData);
 
     if ($user) {
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');   
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
     return back()->with('error', 'Registrasi gagal, coba lagi.');
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
         return view('admin.index'); // Menampilkan formulir
     }
