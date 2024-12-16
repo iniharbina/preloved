@@ -62,11 +62,11 @@ Route::middleware(['auth', 'RoleMiddleware:admin'])->prefix('admin')->name('admi
 
 // Customer Routes (Customer Middleware)
 Route::middleware(['auth', 'RoleMiddleware:customer'])->prefix('customer')->name('customer.')->group(function () {
-    Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
+    Route::get('/customer/dashboard', [CustomerController::class, 'dashboard'])->name('customer.dashboard');
 });
 
 // Additional Admin Route Example for Dashboard
-Route::middleware(['auth', 'RoleMiddleware:admin'])->get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.index');
+Route::middleware(['auth', 'RoleMiddleware:admin'])->get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
 // Rute untuk admin
 Route::middleware(['auth', 'checkRole:admin'])->group(function () {
